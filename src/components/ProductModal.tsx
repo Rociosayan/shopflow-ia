@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { CATEGORY_LABELS, discountPercent, formatSoles, hasDiscount } from '../lib/catalog'
 import { useShop } from '../context/ShopContext'
 import { ProductImage } from './ProductImage'
@@ -6,11 +6,18 @@ import { ProductImage } from './ProductImage'
 export function ProductModal() {
   const { overlay, selectedProduct, closeOverlay, addToCart } = useShop()
   const titleId = useId()
+  const closeRef = useRef<HTMLButtonElement>(null)
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     setQuantity(1)
   }, [selectedProduct?.id])
+
+  useEffect(() => {
+    if (overlay === 'product') {
+      closeRef.current?.focus()
+    }
+  }, [overlay, selectedProduct?.id])
 
   if (overlay !== 'product' || !selectedProduct) return null
 
@@ -27,7 +34,13 @@ export function ProductModal() {
         aria-labelledby={titleId}
         onClick={(event) => event.stopPropagation()}
       >
-        <button type="button" className="icon-close" onClick={closeOverlay} aria-label="Cerrar detalle">
+        <button
+          ref={closeRef}
+          type="button"
+          className="icon-close"
+          onClick={closeOverlay}
+          aria-label="Cerrar detalle"
+        >
           ×
         </button>
 
@@ -41,7 +54,7 @@ export function ProductModal() {
             {discounted && (
               <>
                 <s>{formatSoles(selectedProduct.originalPrice)}</s>
-                <span className="badge badge-sale">−{discountPercent(selectedProduct)}%</span>
+                <span className="badge badge-sale badge-inline">−{discountPercent(selectedProduct)}%</span>
               </>
             )}
           </div>

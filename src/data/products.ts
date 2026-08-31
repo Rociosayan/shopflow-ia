@@ -82,7 +82,19 @@ export const products: Product[] = [
     price: 119,
     originalPrice: 149,
     stock: 6,
-    image: 'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1650017067794-80fd3a99a104?auto=format&fit=crop&w=900&q=80',
+    featured: true,
+  },
+  {
+    id: 'tablet-campus',
+    name: 'Tablet Campus 10"',
+    description:
+      'Tablet de 10 pulgadas para clases, lecturas y apuntes. Wi-Fi, 128 GB y funda incluida. Cabe en la mochila sin agregar peso.',
+    category: 'computacion',
+    price: 699,
+    originalPrice: 849,
+    stock: 9,
+    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=900&q=80',
     featured: true,
   },
   {
@@ -107,18 +119,6 @@ export const products: Product[] = [
     originalPrice: 229,
     stock: 4,
     image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=900&q=80',
-    featured: false,
-  },
-  {
-    id: 'auriculares-studyplay',
-    name: 'Auriculares StudyPlay',
-    description:
-      'Headset con micrófono desmontable: sirve para clases por la mañana y para jugar por la noche. Incluye jack 3.5 mm y USB.',
-    category: 'gaming',
-    price: 149,
-    originalPrice: 189,
-    stock: 0,
-    image: '',
     featured: false,
   },
 ]

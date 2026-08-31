@@ -5,6 +5,7 @@ export const CATEGORY_LABELS: Record<CatalogFilter, string> = {
   audio: 'Audio',
   accesorios: 'Accesorios',
   computacion: 'Computación',
+  tablets: 'Tablets',
   gaming: 'Gaming',
   ofertas: 'Ofertas',
 }

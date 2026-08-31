@@ -32,14 +32,16 @@ function ShopShell() {
 
   return (
     <div className="store">
+      <div className="page-fx" aria-hidden="true" />
       <StoreHeader />
 
       <main id="catalogo" className="catalog">
         <CatalogFilters />
 
         {visibleProducts.length === 0 ? (
-          <p className="empty-copy catalog-empty">
-            No hay coincidencias. Prueba con otro nombre o elige la categoría Todos.
+          <p className="empty-copy catalog-empty" role="status">
+            No hay coincidencias para esta búsqueda o filtro. Prueba con otro nombre o elige
+            <strong> Todos</strong> para ver el catálogo completo.
           </p>
         ) : (
           <div className="grid">

@@ -7,7 +7,7 @@ Esta versión es un laboratorio educativo. No conecta pagos reales ni servicios 
 ## Funciones principales
 
 - Encabezado comercial con llamada a la acción
-- Catálogo de 10 productos con imagen, categoría, precio en soles, descuento y stock
+- Catálogo de gadgets con imagen, categoría (incluye Tablets), precio en soles, descuento y stock
 - Búsqueda por nombre mientras se escribe
 - Filtros: Todos, Audio, Accesorios, Computación, Gaming y Ofertas
 - Modal de detalle con cantidad y botón Agregar al carrito
@@ -66,7 +66,12 @@ Las fotos de producto se cargan desde [Unsplash](https://unsplash.com/license) (
 | Hub USB-C 6 en 1 | Unsplash |
 | Teclado compacto | Unsplash |
 | Soporte para laptop | Unsplash |
-| Webcam Full HD | Unsplash |
+| Webcam Full HD | Unsplash (cámara tipo webcam) |
+| Tablet Campus 10" | Unsplash |
+| Tablet Note 8" | Unsplash |
+| Tablet Pro Estudio 11" | Unsplash |
+| Funda con teclado | Unsplash |
+| Lápiz digital | Unsplash |
 | Mousepad gaming XL | Unsplash |
 | Control DualPlay | Unsplash |
 | Auriculares StudyPlay | Sin imagen (caso de prueba) |

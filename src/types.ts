@@ -1,4 +1,4 @@
-export type Category = 'audio' | 'accesorios' | 'computacion' | 'gaming'
+export type Category = 'audio' | 'accesorios' | 'computacion' | 'tablets' | 'gaming'
 
 export type CatalogFilter = 'todos' | Category | 'ofertas'
 

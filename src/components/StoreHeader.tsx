@@ -5,6 +5,12 @@ export function StoreHeader() {
 
   return (
     <header className="hero">
+      <div className="hero-fx" aria-hidden="true">
+        <span className="orb orb-cyan" />
+        <span className="orb orb-violet" />
+        <span className="orb orb-mint" />
+        <span className="grid-floor" />
+      </div>
       <div className="hero-bar">
         <p className="brand">ShopFlow IA</p>
         <button type="button" className="cart-trigger" onClick={openCart}>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { products } from '../data/products'
 import { cartCount, cartSubtotal, filterProducts } from '../lib/catalog'
 import type { CartItem, CatalogFilter, Overlay, Product } from '../types'
@@ -11,6 +11,7 @@ interface ShopContextValue {
   category: CatalogFilter
   setCategory: (value: CatalogFilter) => void
   overlay: Overlay
+  isClosing: boolean
   selectedProduct: Product | null
   cart: CartItem[]
   cartTotal: number
@@ -32,9 +33,37 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CatalogFilter>('todos')
   const [overlay, setOverlay] = useState<Overlay>('none')
+  const [isClosing, setIsClosing] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [cart, setCart] = useState<CartItem[]>([])
   const [toast, setToast] = useState<string | null>(null)
+  const closeTimer = useRef<number | null>(null)
+  const toastTimer = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) window.clearTimeout(closeTimer.current)
+      if (toastTimer.current) window.clearTimeout(toastTimer.current)
+    }
+  }, [])
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  }
+
+  function clearCloseTimer() {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }
+
+  function openLayer(next: Overlay, product: Product | null = null) {
+    clearCloseTimer()
+    setIsClosing(false)
+    setSelectedProduct(product)
+    setOverlay(next)
+  }
 
   const visibleProducts = useMemo(
     () => filterProducts(products, query, category),
@@ -45,33 +74,43 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const itemCount = useMemo(() => cartCount(cart), [cart])
 
   function showToast(message: string) {
+    if (toastTimer.current) window.clearTimeout(toastTimer.current)
     setToast(message)
-    window.setTimeout(() => setToast(null), 1800)
+    toastTimer.current = window.setTimeout(() => setToast(null), 1600)
   }
 
   function openProduct(product: Product) {
-    setSelectedProduct(product)
-    setOverlay('product')
+    openLayer('product', product)
   }
 
   function openCart() {
-    setSelectedProduct(null)
-    setOverlay('cart')
+    openLayer('cart')
   }
 
   function openAssistant() {
-    setSelectedProduct(null)
-    setOverlay('assistant')
+    openLayer('assistant')
   }
 
   function openCheckout() {
+    openLayer('checkout')
+  }
+
+  function finishClose() {
+    setOverlay('none')
     setSelectedProduct(null)
-    setOverlay('checkout')
+    setIsClosing(false)
   }
 
   function closeOverlay() {
-    setOverlay('none')
-    setSelectedProduct(null)
+    if (overlay === 'none' || isClosing) return
+
+    if (prefersReducedMotion()) {
+      finishClose()
+      return
+    }
+
+    setIsClosing(true)
+    closeTimer.current = window.setTimeout(finishClose, 180)
   }
 
   function addToCart(productId: string, quantity: number) {
@@ -92,8 +131,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     })
 
     showToast(`${product.name} se agregó al carrito`)
-    setOverlay('none')
-    setSelectedProduct(null)
+    closeOverlay()
   }
 
   function changeQuantity(productId: string, nextQuantity: number) {
@@ -101,7 +139,6 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     if (!product) return
 
     if (nextQuantity < 1) {
-      removeFromCart(productId)
       return
     }
 
@@ -126,6 +163,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     category,
     setCategory,
     overlay,
+    isClosing,
     selectedProduct,
     cart,
     cartTotal,

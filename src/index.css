@@ -1,7 +1,7 @@
 :root {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: #12233a;
-  background: #eef3f8;
+  background: #050914;
   line-height: 1.5;
   --navy: #10243f;
   --ink: #16324f;
@@ -13,6 +13,8 @@
   --sale: #b45309;
   --danger: #b42318;
   --shadow: 0 10px 30px rgba(16, 36, 63, 0.08);
+  --neon: #22d3ee;
+  --violet: #a855f7;
 }
 
 * {

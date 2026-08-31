@@ -26,7 +26,7 @@ function recommend(prompt: PromptId): Recommendation {
   }
 
   if (prompt === 'study') {
-    const studyIds = new Set(['audifonos-campus', 'soporte-laptop', 'webcam-clases', 'hub-usbc'])
+    const studyIds = new Set(['tablet-campus', 'audifonos-campus', 'webcam-clases', 'lapiz-digital'])
     return {
       intro: 'Para jornadas de estudio recomiendo piezas cómodas y prácticas del inventario local:',
       picks: products.filter((item) => studyIds.has(item.id) && item.stock > 0).slice(0, 3),

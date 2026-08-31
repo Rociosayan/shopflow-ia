@@ -15,17 +15,17 @@ export function CatalogFilters() {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Busca audífonos, mouse, webcam..."
+          placeholder="Busca por nombre: audífonos, mouse, webcam..."
+          autoComplete="off"
         />
       </label>
 
-      <div className="filter-row" role="tablist" aria-label="Filtrar por categoría">
+      <div className="filter-row" role="group" aria-label="Filtrar por categoría">
         {FILTERS.map((filter) => (
           <button
             key={filter}
             type="button"
-            role="tab"
-            aria-selected={category === filter}
+            aria-pressed={category === filter}
             className={`chip ${category === filter ? 'is-active' : ''}`}
             onClick={() => setCategory(filter)}
           >
@@ -34,7 +34,9 @@ export function CatalogFilters() {
         ))}
       </div>
 
-      <p className="results-count">{visibleProducts.length} productos</p>
+      <p className="results-count" role="status">
+        {visibleProducts.length === 1 ? '1 producto' : `${visibleProducts.length} productos`}
+      </p>
     </section>
   )
 }

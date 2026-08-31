@@ -50,6 +50,7 @@ export function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => changeQuantity(item.productId, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
                         aria-label={`Disminuir ${product.name}`}
                       >
                         −
